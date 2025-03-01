@@ -11,11 +11,8 @@ namespace test {
     namespace occt {
         // Tests related to dependancies on the open cascade technology c++ library
         TEST(OCCTTest, OpenCascadeAccess) {
-            // Create a box with dimensions 10x10x10
             BRepPrimAPI_MakeBox box(10.0, 10.0, 10.0);
-                        
-            // Check if the shape is created (should not be null)
-            EXPECT_TRUE(not box.Shape().IsNull());  // The shape should be valid and not null
+            EXPECT_FALSE(box.Shape().IsNull());
         }
     }
 
