@@ -22,6 +22,7 @@ class cadanceRecipe(ConanFile):
 
     def requirements(self):
         self.requires("opencascade/7.6.2")
+        self.requires("imgui/1.91.8")
         self.requires("gtest/1.15.0")
 
     def layout(self):
