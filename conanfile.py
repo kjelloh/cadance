@@ -20,6 +20,10 @@ class cadanceRecipe(ConanFile):
     # Sources are located in the same place as this recipe, copy them to the recipe
     exports_sources = "CMakeLists.txt", "src/*"
 
+    def requirements(self):
+        self.requires("opencascade/7.6.2")
+        self.requires("gtest/1.15.0")
+
     def layout(self):
         cmake_layout(self)
 
