@@ -5,6 +5,8 @@
 #include <BRepPrimAPI_MakeBox.hxx>
 // ImGui access
 #include "imgui.h"
+// Immer access
+#include <immer/vector.hpp>
 
 namespace test {
 
@@ -14,7 +16,7 @@ namespace test {
             BRepPrimAPI_MakeBox box(10.0, 10.0, 10.0);
             EXPECT_FALSE(box.Shape().IsNull());
         }
-    }
+    } // namespace occt
 
     namespace imgui {
         // Tests related to dependancies on the ImGui C++ library
@@ -53,7 +55,24 @@ namespace test {
             EXPECT_TRUE(imgui_context_raii.context());
         }        
         
-    }
+    } // namespace imgui
+
+    namespace immer_suite {
+        TEST(ImmerAccessTest, BasicVectorOperations) {
+            // Create an immutable vector
+            immer::vector<int> v1;
+            
+            // Add an element (returns a new vector)
+            auto v2 = v1.push_back(42);
+        
+            // The old vector should remain empty
+            EXPECT_TRUE(v1.empty());
+        
+            // The new vector should contain exactly one element: 42
+            EXPECT_EQ(v2.size(), 1);
+            EXPECT_EQ(v2[0], 42);
+        }
+    } // namespace immer_suite
 
     int run_all() {
         ::testing::InitGoogleTest();
