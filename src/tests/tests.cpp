@@ -74,6 +74,17 @@ namespace test {
         }
     } // namespace immer_suite
 
+    namespace cpp {
+        TEST(Cpp23FeatureTest, DetectCpp23Support) {
+            bool cpp23_supported{};
+            // Check if the compiler is using C++23 or later
+            if constexpr (__cplusplus >= 202302L) {
+                cpp23_supported = true;
+            }
+            EXPECT_TRUE(cpp23_supported);
+        }        
+    }
+
     int run_all() {
         ::testing::InitGoogleTest();
         return RUN_ALL_TESTS();

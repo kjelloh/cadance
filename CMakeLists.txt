@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.20)
 project(cadance CXX)
+
+set(CMAKE_CXX_STANDARD 23)
 
 find_package(OpenCASCADE REQUIRED)
 find_package(imgui REQUIRED)
