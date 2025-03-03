@@ -7,10 +7,12 @@
 #include "imgui.h"
 // Immer access
 #include <immer/vector.hpp>
+// PugiXML access
+#include <pugixml.hpp>
 
 namespace test {
 
-    namespace occt {
+    namespace occt_suite {
         // Tests related to dependancies on the open cascade technology c++ library
         TEST(OCCTTest, OpenCascadeAccess) {
             BRepPrimAPI_MakeBox box(10.0, 10.0, 10.0);
@@ -18,7 +20,7 @@ namespace test {
         }
     } // namespace occt
 
-    namespace imgui {
+    namespace imgui_suite {
         // Tests related to dependancies on the ImGui C++ library
         
         // RAII for ImGui current and new test context
@@ -74,7 +76,7 @@ namespace test {
         }
     } // namespace immer_suite
 
-    namespace cpp {
+    namespace cpp_suite {
         TEST(Cpp23FeatureTest, DetectCpp23Support) {
             bool cpp23_supported{};
             // Check if the compiler is using C++23 or later
@@ -82,6 +84,29 @@ namespace test {
                 cpp23_supported = true;
             }
             EXPECT_TRUE(cpp23_supported);
+        }        
+    }
+
+    namespace pugixml_suite {
+        TEST(PugiXMLTest, CanParseBasicXML) {
+            // Sample XML
+            const char* xml = "<root><child>value</child></root>";
+        
+            // Load into pugixml
+            pugi::xml_document doc;
+            pugi::xml_parse_result result = doc.load_string(xml);
+        
+            // Check if parsing was successful
+            ASSERT_TRUE(result) << "Failed to parse XML: " << result.description();
+        
+            // Verify content
+            pugi::xml_node root = doc.child("root");
+            ASSERT_TRUE(root) << "Root node not found";
+        
+            pugi::xml_node child = root.child("child");
+            ASSERT_TRUE(child) << "Child node not found";
+        
+            EXPECT_STREQ(child.child_value(), "value");
         }        
     }
 
