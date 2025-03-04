@@ -7,3 +7,5 @@ conan search pugixml
 conan search spdlog
 echo Compare with conanfile.py requires listing
 cat conanfile.py | grep 'self.requires'
+echo Listing of brew installed packages
+brew --prefix coin3d

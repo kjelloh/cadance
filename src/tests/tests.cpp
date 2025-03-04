@@ -12,6 +12,9 @@
 // spdlog access
 #include <spdlog/spdlog.h> 
 #include <spdlog/sinks/rotating_file_sink.h>
+// Coin3D access
+#include <Inventor/SoDB.h>
+#include <Inventor/nodes/SoSeparator.h>
 
 
 namespace test {
@@ -128,6 +131,25 @@ namespace test {
         }
         }
     } // namespace spdlog_suite
+
+    namespace coin3d_suite {
+
+        TEST(Coin3DTest, InitializeAndCreateNode) {
+            // Initialize Coin3D database
+            SoDB::init();
+        
+            // Create a simple scene graph
+            SoSeparator* root = new SoSeparator;
+            root->ref();  // Reference it to prevent deletion
+        
+            // Ensure the root node is not null
+            ASSERT_NE(root, nullptr);
+        
+            // Clean up
+            root->unref();  // Unreference it to allow deletion
+        }        
+
+    } // namespace coin3d_suite {
 
     int run_all() {
         ::testing::InitGoogleTest();
