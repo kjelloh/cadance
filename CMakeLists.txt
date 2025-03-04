@@ -10,6 +10,8 @@ find_package(immer REQUIRED)
 find_package(pugixml REQUIRED)
 find_package(spdlog REQUIRED)
 
+# Extra logging for problem child Coin3D
+# This works at least for macOS Brew installed Coin3D
 find_package(Coin3D REQUIRED)
 message(STATUS "COIN3D_FOUND: ${COIN3D_FOUND}")
 message(STATUS "COIN3D_INCLUDE_DIRS: ${COIN3D_INCLUDE_DIRS}")
@@ -27,9 +29,10 @@ target_link_libraries(cadance immer::immer)
 target_link_libraries(cadance pugixml::pugixml)
 target_link_libraries(cadance spdlog::spdlog)
 
+# There seems to be no qualified name mmm::nnn available for Brew installed Coin3D?
+# But this manual clauses seems to do the trick for cmake to be able to do its job
 target_include_directories(cadance PRIVATE ${COIN3D_INCLUDE_DIRS})
 target_link_libraries(cadance ${COIN3D_LIBRARIES})
-
 
 install(TARGETS cadance DESTINATION "."
         RUNTIME DESTINATION bin
