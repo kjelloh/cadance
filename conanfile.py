@@ -26,6 +26,7 @@ class cadanceRecipe(ConanFile):
         self.requires("gtest/1.15.0")
         self.requires("immer/0.8.1")
         self.requires("pugixml/1.14")
+        self.requires("spdlog/1.15.1")
 
     def layout(self):
         cmake_layout(self)
