@@ -9,6 +9,10 @@
 #include <immer/vector.hpp>
 // PugiXML access
 #include <pugixml.hpp>
+// spdlog access
+#include <spdlog/spdlog.h> 
+#include <spdlog/sinks/rotating_file_sink.h>
+
 
 namespace test {
 
@@ -108,7 +112,22 @@ namespace test {
         
             EXPECT_STREQ(child.child_value(), "value");
         }        
-    }
+    } // namespace pugixml_suite {
+
+    namespace spdlog_suite {
+        TEST(SpdLogTest, CanProduceLog) {
+        try {
+            auto logger = spdlog::rotating_logger_mt(
+                "rotating_logger", "logs/rotating_log.txt", 5 * 1024 * 1024, 3);
+            spdlog::set_default_logger(logger);
+            spdlog::info("'TEST(SpdLogTest, CanProduceLog)' test output");
+            spdlog::default_logger()->flush();
+        } 
+        catch (std::exception& e) {
+            FAIL() << "Exception: " << std::quoted(e.what());
+        }
+        }
+    } // namespace spdlog_suite
 
     int run_all() {
         ::testing::InitGoogleTest();
