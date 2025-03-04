@@ -21,6 +21,7 @@ class cadanceRecipe(ConanFile):
     exports_sources = "CMakeLists.txt", "src/*"
 
     def requirements(self):
+        self.requires("glfw/3.4")
         self.requires("opencascade/7.6.2")
         self.requires("imgui/1.91.8")
         self.requires("gtest/1.15.0")

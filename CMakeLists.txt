@@ -3,6 +3,7 @@ project(cadance CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 
+find_package(glfw3)
 find_package(OpenCASCADE REQUIRED)
 find_package(imgui REQUIRED)
 find_package(GTest REQUIRED)
@@ -22,6 +23,7 @@ file(GLOB_RECURSE HEADERS "src/*.hpp")
 
 add_executable(cadance ${SOURCES} ${HEADERS})
 
+target_link_libraries(cadance glfw)
 target_link_libraries(cadance opencascade::opencascade)
 target_link_libraries(cadance imgui::imgui)
 target_link_libraries(cadance gtest::gtest)

@@ -1,6 +1,9 @@
 #include "tests.hpp"
 #include <memory> // E.g., unique_ptr
 #include <gtest/gtest.h>
+
+// GLFW access
+#include <GLFW/glfw3.h>
 // Open Cascade access
 #include <BRepPrimAPI_MakeBox.hxx>
 // ImGui access
@@ -18,6 +21,23 @@
 
 
 namespace test {
+
+    namespace glfw_suite {
+        // Tests related to dependance on glfw 
+        struct GLFW_RAII {
+            bool m_init_ok{};
+            GLFW_RAII() {
+                m_init_ok = glfwInit();
+            }
+            ~GLFW_RAII() {
+                if (m_init_ok) glfwTerminate();
+            }
+        };
+        TEST(GLFWTest,GLFWAccessTest) {
+            GLFW_RAII glfw_raii{};
+            EXPECT_TRUE(glfw_raii.m_init_ok);
+        }
+    }
 
     namespace occt_suite {
         // Tests related to dependancies on the open cascade technology c++ library
